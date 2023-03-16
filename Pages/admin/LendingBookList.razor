@@ -1,0 +1,61 @@
+﻿@page "/admin/book/lending"
+
+@using BlazorDemo.Data
+
+@inject ProductServices service
+
+<h3>貸出中</h3>
+
+<div class="container">
+    <div class="row bg-light">
+        <table style="width:100%; border-collapse:collapse; margin-top:20px;">
+            <thead style="background-color:lightgray; font-weight:bold;">
+                <tr>
+                    <th>利用者</th>
+                    <th>本ID</th>
+                    <th>貸出日</th>
+                    <th>返却日</th>
+                    <th>返却済み</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Reservations.Any())
+                {
+                    @foreach (var Reservation in Reservations)
+                    {
+                        <tr>
+                            <td>@Reservation.userID.</td>
+                            <td>@Reservation.bookID</td>
+                            <td>@Reservation.reservationDate</td>
+                            <td>@Reservation.returnDate</td>
+                            <td><button class="btn btn-danger" @onclick="(() => DeleteProduct(Reservation))">Delete</button></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="6"><strong>No products available</strong></td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+  
+</div>
+
+@code {
+    List<Reservations> Reservations = new List<Reservations>();
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshReservations();
+    }
+    private async Task RefreshReservations()
+    {
+        Reservations = await service.GetReservationsAsync();
+    }
+    private async Task DeleteProduct(Reservations Reservation)
+    {
+        await service.DeleteReservationsAsync(Reservation);
+        await RefreshReservations();
+    }
+}
+

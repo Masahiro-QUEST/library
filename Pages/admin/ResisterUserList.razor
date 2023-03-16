@@ -1,0 +1,48 @@
+﻿@page "/admin/user/registered"
+
+@using BlazorDemo.Data
+@inject IJSRuntime JsRuntime
+@inject BlazorDemoIdentityServices service
+
+
+<h3>登録ユーザー</h3>
+
+<table style="width:100%; border-collapse:collapse; margin-top:20px;">
+    <thead style="background-color:lightgray; font-weight:bold;">
+        <tr>
+            <td style="border:1px solid black; padding:8px;">Username</td>
+            <td style="border:1px solid black; padding:8px;">Email</td>
+            <td style="border:1px solid black; padding:8px;">Admin</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Identities.Any())
+        {
+            foreach (var Identity in Identities)
+            {
+                <tr>
+                    <td style="border:1px solid black; padding:8px;">@Identity.UserName</td>
+                    <td style="border:1px solid black; padding:8px;">@Identity.Email</td>
+                    <td style="border:1px solid black; padding:8px;">@Identity.Administrator</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td style="text-align:center; padding:20px;" colspan="2"><strong>No users registered</strong></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<MyData>? Identities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Identities = await service.GetDataFromSQLiteAsync();
+        
+    }
+
+}

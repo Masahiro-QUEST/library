@@ -1,0 +1,128 @@
+﻿@page "/counter"
+@using BlazorDemo.Data
+@using Microsoft.AspNetCore.Components.Authorization
+@inject ProductServices service
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager navManager
+
+
+<PageTitle>Counter</PageTitle>
+
+<h1 style="text-align: center; font-size: 36px; color: #2196F3">利用者画面</h1>
+<div style="background-color: #F5F5F5; padding: 40px;">
+    <AuthorizeView>
+        <Authorized>
+            <div style="text-align: center;">
+                <a style="font-size: 24px;">@context.User.Identity?.Name さんこんにちは</a>
+                <p style="font-size: 20px;">@currentDate.ToString("yyyy年MM月dd日") 現在</p>
+                <p style="font-size: 20px; margin-bottom: 20px;">貸出件数: @bookTitlesAndReturnDates.Count</p>
+                <p style="font-size: 20px; margin-bottom: 20px;">予約件数: @TemporaryReserve.Count</p>
+                <p style="font-size: 20px; margin-bottom: 20px;">お気に入り登録件数: @likesList.Count</p>
+                <h2 style="text-align: left; font-size: 24px;">貸出中の本:</h2>
+                <ul style="list-style-type: none; background-color: #E8E8E8; padding: 20px;">
+                    ...
+                    @foreach (var book in bookTitlesAndReturnDates)
+                    {
+                        <li style="font-size: 20px;">@book.Title. - 返却日: @book.ReturnDate.ToString("yyyy年MM月dd日")</li>
+                    }
+                </ul>
+                <h2 style="text-align: left; font-size: 24px;">予約の本:</h2>
+                <ul style="list-style-type: none; background-color: #E8E8E8; padding: 20px;">
+                    ...
+                    @foreach (var temporaryReserve in TemporaryReserve)
+                    {
+                        <li style="font-size: 20px;">
+                            @temporaryReserve
+                            <div class="btn-group">
+                                <button class="btn btn-danger" @onclick="(() => DeleteTemporaryReserve(temporaryReserve))"> キャンセル</button>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <h2 style="text-align: left; font-size: 24px;">お気に入りの本:</h2>
+                <ul style="list-style-type: none; background-color: #E8E8E8; padding: 20px;">
+                    ...
+                    @foreach (var title in likesList)
+                    {
+                        <li style="font-size: 20px;">
+                            @title
+                            <div class="btn-group">
+                                <button class="btn btn-primary" @onclick="(() => GotoReservePage(title))">予約</button>
+                                <button class="btn btn-danger" @onclick="(() => DeleteFavorite(title))">削除</button>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <div style="text-align: center;">
+                <a style="margin: 20px; font-size: 20px;" href="Identity/Account/Register">新しく登録する方はこちらへ</a>
+                <a style="font-size: 20px;" href="Identity/Account/Login">すでに登録済みの方はこちらへ</a>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+<style>
+    .custom-button {
+        background-color: #ff5733;
+        color: white;
+        border-radius: 4px;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .custom-button:hover {
+            background-color: #f44336;
+        }
+</style>
+
+@code {
+    private int currentCount = 0;
+    private string? getUserName;
+    private List<(string Title, DateTime ReturnDate)>? bookTitlesAndReturnDates;
+    private List<string>? likesList;
+    private List<string>? TemporaryReserve;
+
+
+    private DateTime currentDate = DateTime.Now;
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        getUserName = $"{user.Identity.Name}";
+        bookTitlesAndReturnDates = await service.GetBookTitlesAndReturnDatesByUserAsync(getUserName);
+        likesList = await service.GetLikesByUserAsync(getUserName);
+        TemporaryReserve = await service.GetTemporaryReserveByUserAsync(getUserName);
+    }
+    private async Task RefreshLikes()
+    {
+        likesList = await service.GetLikesByUserAsync(getUserName);
+        TemporaryReserve = await service.GetTemporaryReserveByUserAsync(getUserName);
+    }
+    private async Task RefreshTemporaryReserve()
+    {
+        TemporaryReserve = await service.GetTemporaryReserveByUserAsync(getUserName);
+        TemporaryReserve = await service.GetTemporaryReserveByUserAsync(getUserName);
+    }
+    private async Task DeleteFavorite(string title)
+    {
+        await service.DeleteLikeAsync(title, getUserName);
+        await RefreshLikes();
+    }
+    private async Task DeleteTemporaryReserve(string title)
+    {
+        await service.DeleteTemporaryReserveAsync(title, getUserName);
+        await RefreshTemporaryReserve();
+    }
+    private async Task GotoReservePage(string title)
+    {
+        navManager.NavigateTo($"/bytitle?title={title}", true);
+    }
+}
+
+

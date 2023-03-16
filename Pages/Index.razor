@@ -1,0 +1,86 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components;
+@inject NavigationManager navManager
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>蔵書検索・予約</h1>
+
+<div style="margin-bottom:10px">書名、著者名、出版者名、キーワード、件名で図書や雑誌・視聴覚資料を検索できます。</div>
+<div style="display:inline-block; margin-right:10px; width:120px">
+    <form @onsubmit="SearchByTitle">
+        <label for="search">書名:</label>
+        <input type="text" id="title_search" @bind="TitleSearch">
+        <br>
+        <input type="submit" value="書検索">
+    </form>
+
+    <form @onsubmit="SearchByAuthor">
+        <label for="search">著者名:</label>
+        <input type="text" id="author_search" @bind="AuthorSearch">
+        <br>
+        <input type="submit" value="著者検索">
+    </form>
+
+    <form @onsubmit="SearchByTag">
+        <label for="search">検索キーワード:</label>
+        <input type="text" id="search" @bind="TagSearch">
+        <br>
+        <input type="submit" value="検索">
+    </form>
+</div>
+
+<style>
+    form {
+        background-color: #f2f2f2;
+        padding: 20px;
+        width: 300px;
+        border-radius: 5px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+</style>
+
+@code {
+    public string? TitleSearch { get; set; }
+    public string? AuthorSearch { get; set; }
+    public string? TagSearch { get; set; }
+
+    public void SearchByTitle()
+    {
+        navManager.NavigateTo($"/bytitle?title={TitleSearch}", true);
+    }
+    public void SearchByAuthor()
+    {
+        navManager.NavigateTo($"/byauthor?author={AuthorSearch}", true);
+    }
+    public void SearchByTag()
+    {
+        navManager.NavigateTo($"/bytag?tag={TagSearch}", true);
+    }
+}

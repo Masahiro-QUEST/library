@@ -1,0 +1,72 @@
+﻿@page "/temporary/{id}"
+@using BlazorDemo.Data
+@inject NavigationManager navManager
+@inject ProductServices service
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<h3>予約ページ</h3>
+
+
+<AuthorizeView>
+    <Authorized>
+        <a> @context.User.Identity?.Name さん<br />  下記の本を予約しますか？</a><br />
+        @if (product != null)
+        {
+            <a style="font-weight: bold;">@product.title</a><br />
+        }
+        <button button @onclick="(() => AddTemporaryReservation())">予約</button>
+        <button button @onclick="(() => Back())">戻る</button>
+    </Authorized>
+    <NotAuthorized>
+        <a>ログインしてください</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private DateTime now;
+
+    [Parameter]
+    public string? id { get; set; }
+
+    List<ReservationTemporary> Reserve = new List<ReservationTemporary>();
+    List<Product> Products = new List<Product>();
+    private Product product;
+
+    public ReservationTemporary NewReservationTemporary { get; set; } = new ReservationTemporary();
+
+
+    protected override async void OnInitialized()
+    {
+        /// 現在ログインしているユーザー情報取得
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        /// idを引数に一致するレコードのリストから1つのオブジェクトを取得
+        Products = await service.GetProductByIDAsync(int.Parse(id));
+        product = Products.FirstOrDefault();
+        /// 仮の貸出用
+        NewReservationTemporary.userID = $"{user.Identity.Name}";
+        NewReservationTemporary.bookID = int.Parse(id);
+        NewReservationTemporary.reservationDate = DateTime.Now;
+    }
+
+    private async Task RefreshTemoraryReserves()
+    {
+        Reserve = await service.GetTemoraryReservationsAsync();
+    }
+    private async Task AddTemporaryReservation()
+    {
+        await service.AddTemporaryReservationsAsync(NewReservationTemporary);
+        NewReservationTemporary = new ReservationTemporary();
+        await RefreshTemoraryReserves();
+
+        navManager.NavigateTo($"/reservations/complete", true);
+    }
+
+    public void Back()
+    {
+        navManager.NavigateTo($"/", true);
+    }
+}

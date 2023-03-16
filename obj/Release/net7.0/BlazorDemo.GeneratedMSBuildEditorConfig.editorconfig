@@ -1,0 +1,157 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BlazorDemo
+build_property.RootNamespace = BlazorDemo
+build_property.ProjectDir = /Users/masahiro/Projects/BlazorDemo/BlazorDemo/
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/masahiro/Projects/BlazorDemo/BlazorDemo
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/admin/AddBook.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvYWRtaW4vQWRkQm9vay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/admin/LendingBookList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvYWRtaW4vTGVuZGluZ0Jvb2tMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/admin/Menu.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvYWRtaW4vTWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/admin/ResisterUserList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvYWRtaW4vUmVzaXN0ZXJVc2VyTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Hamburger/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSGFtYnVyZ2VyL0NvdW50ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Hamburger/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSGFtYnVyZ2VyL0ZldGNoRGF0YS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Reservation/Booking.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVzZXJ2YXRpb24vQm9va2luZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Reservation/Complete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVzZXJ2YXRpb24vQ29tcGxldGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Reservation/TempraryBooking.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVzZXJ2YXRpb24vVGVtcHJhcnlCb29raW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Serch/ByAuthor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2VyY2gvQnlBdXRob3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Serch/ByTag.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2VyY2gvQnlUYWcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Serch/ByTitle.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2VyY2gvQnlUaXRsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Toshow.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVG9zaG93LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Shared/LoginDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0xvZ2luRGlzcGxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-lflgoc2bw1
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-v1yrjgb210
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/Account/LogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9Mb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9fVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvU2hhcmVkL19Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/BookList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQm9va0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/masahiro/Projects/BlazorDemo/BlazorDemo/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,58 @@
+﻿@page "/fetchdata"
+@using BlazorDemo.Data
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@inject NavigationManager navManager
+@inject IJSRuntime JsRuntime
+@inject BlazorDemoIdentityServices service
+
+
+
+<h3>権限チェック</h3>
+
+<button @onclick="GetClaimsPrincipalData">メニュー画面に→</button>
+
+
+
+@code {
+    private string getUserName;
+    private string surnameMessage;
+    private int checkAdmin;
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            getUserName = $"{user.Identity.Name}";
+            checkAdmin = await service.GetAdministratorAsync(getUserName);
+        }
+        else
+        {
+            checkAdmin = 0;
+        }
+
+    }
+
+    private async Task GetClaimsPrincipalData()
+    {
+
+        if (checkAdmin == 1)
+        {
+            navManager.NavigateTo($"/admin/menu", true);
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("myfunc", "管理者権限がありません");
+            StateHasChanged();
+        }
+    }
+
+
+
+}

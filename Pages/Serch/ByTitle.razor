@@ -1,0 +1,166 @@
+﻿@page "/bytitle"
+
+@using BlazorDemo.Data
+
+@inject ProductServices service
+@inject NavigationManager navManager
+@inject IJSRuntime JsRuntime
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<h1>keyword is @title!</h1>
+<a>該当件数は @Products.Count です。<br />該当する資料がない場合はリクエストすることができます。</a>
+<div class="container">
+    <div class="row bg-light">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>イメージ</th>
+                    <th>書籍タイトル</th>
+                    <th>著者</th>
+                    <th>発売日</th>
+                    <th>お気に入り</th>
+                    <th>予約</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Products.Any())
+                {
+                    @foreach (var product in Products)
+                    {
+                        <tr>
+                            <td><img src="@product.imagePath" style="width:100px; height:130px;" /></td>
+                            <td>@product.title</td>
+                            <td>@product.author</td>
+                            <td>@product.updated_date</td>
+                            <td><button @onclick="(() => AddNewLikes(product))">お気に入り</button></td>
+                            <td><button @onclick="(() => Booking(product))">予約</button></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="6"><strong>No products available</strong></td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .container {
+        padding: 20px;
+    }
+
+    .bg-light {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    thead {
+        font-weight: bold;
+    }
+
+    img {
+        border-radius: 5px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+    /// <summary>
+    /// URLパラメーターからクエリ文字列から取得
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? title { get; set; }
+    public int TotalQuantity { get; set; }
+    public int LendingQuantity { get; set; }
+    List<Product> Products = new List<Product>();
+    /// <summary>
+    /// OnInitializedAsyncメソッドは初期パラメータを受け取る。
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshProducts();
+        await RefreshLikes();
+    }
+    private async Task RefreshProducts()
+    {
+        if (title != null)
+        {
+            /// titleを引数にProductsのリストを取得
+            Products = await service.GetProductByTitleAsync(title);
+        }
+        else
+        {
+            Products = await service.GetProductByTitleAsync("Test");
+        }
+
+    }
+    private async Task RefreshLikes()
+    {
+        Likes = await service.GetLikeAsync();
+    }
+    /// <summary>
+    /// 予約ボタンを押下した際に動作。
+    /// 押下したレコードのproductオブジェクトを取得
+    /// </summary>
+    private async Task Booking(Product product)
+    {
+        string? productTitle = product.title;
+        int productID = product.Id;
+        /// 貸出中の本数と在庫の本数を比べて貸出中が在庫以上だったらエラーアラート,以下だったら予約画面に遷移
+        if (productTitle != null)
+        {
+            TotalQuantity = await service.GetProductQuantityAsync(productTitle);
+            LendingQuantity = await service.GetRecordCountAsync(productID);
+
+            if (TotalQuantity > LendingQuantity)
+            {
+                navManager.NavigateTo($"/booking/{product.Id}", true);
+            }
+            else
+            {
+                await JsRuntime.InvokeVoidAsync("myfunc", "申し訳ございません。こちらの本は貸出中です");
+                navManager.NavigateTo($"/temporary/{product.Id}", true);
+            }
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("myfunc", "エラーが起きました。管理者に問い合わせてください");
+        }
+    }
+    List<Like> Likes = new List<Like>();
+    public Like NewProduct { get; set; } = new Like();
+    /// <summary>
+    /// お気に入りボタンを押下した際に動作。
+    /// 押下したレコードのproductオブジェクトを取得
+    /// </summary>
+    private async Task AddNewLikes(Product product)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var newProduct = new Like()
+        {
+            bookID = product.Id,
+            userID = $"{user.Identity.Name}"
+        };
+        await service.AddLikeAsync(newProduct);
+        await RefreshLikes();
+        await JsRuntime.InvokeVoidAsync("mysecondfunc", product.title + "をお気に入りにしました");
+    }
+
+}
+

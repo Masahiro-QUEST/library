@@ -1,0 +1,51 @@
+﻿@page "/admin/menu"
+
+@using BlazorDemo.Data
+
+@inject ProductServices service
+    <div class="menu-container">
+        <div class="menu-item">
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+            <a href="/admin/book/register">書籍登録</a>
+        </div>
+        <div class="menu-item">
+            <span class="oi oi-book" aria-hidden="true"></span>
+            <a href="/admin/book/lending">貸出一覧</a>
+        </div>
+        <div class="menu-item">
+            <span class="oi oi-people" aria-hidden="true"></span>
+            <a href="/admin/user/registered">ユーザー登録者</a>
+        </div>
+    </div>
+
+    <style>
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+        }
+
+            .menu-item a {
+                color: #495057;
+                text-decoration: none;
+                margin-left: 10px;
+                font-size: 1.2rem;
+            }
+
+                .menu-item a:hover {
+                    color: #007bff;
+                    text-decoration: underline;
+                }
+    </style>

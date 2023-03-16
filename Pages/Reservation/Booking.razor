@@ -1,0 +1,87 @@
+﻿@page "/booking/{id}"
+@using BlazorDemo.Data
+@inject NavigationManager navManager
+@inject ProductServices service
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<h3>予約ページ</h3>
+
+
+<AuthorizeView>
+    <Authorized>
+        <a> @context.User.Identity?.Name さん<br />  を予約しますか？</a>
+        <p>返却日: @twoWeeksFromNow.ToString("yyyy/MM/dd")</p>
+        <button button @onclick="(() => AddNewReservation())">予約</button>
+        <button button @onclick="(() => Back())">戻る</button>
+    </Authorized>
+    <NotAuthorized>
+        <a>ログインしてください</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+    private DateTime now;
+    private DateTime twoWeeksFromNow;
+
+    [Parameter]
+    public string? id { get; set; }
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+
+    List<Reservations> Reserve = new List<Reservations>();
+    List<ReservationHistory> ReserveHistory = new List<ReservationHistory>();
+    List<Product> Products = new List<Product>();
+
+    public Reservations NewReservations { get; set; } = new Reservations();
+    public ReservationHistory NewReservationHistory { get; set; } = new ReservationHistory();
+
+    protected override async void OnInitialized()
+    {
+        /// 現在ログインしているユーザー情報取得
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        /// idを引数に一致するレコードのリストから1つのオブジェクトを取得
+        Products = await service.GetProductByIDAsync(int.Parse(id));
+        var product = Products.FirstOrDefault();
+        ///　現在の日付と2週間後（返却日）を取得
+        now = DateTime.Now;
+        twoWeeksFromNow = now.AddDays(14);
+        /// 現在の貸出用
+        NewReservations.userID = $"{user.Identity.Name}";
+        NewReservations.bookID = int.Parse(id);
+        NewReservations.reservationDate = DateTime.Now;
+        NewReservations.returnDate = twoWeeksFromNow;
+        /// 監査用
+        NewReservationHistory.userID = $"{user.Identity.Name}";
+        NewReservationHistory.bookID = product.Id;
+        NewReservationHistory.reservationDate = DateTime.Now;
+        NewReservationHistory.returnDate = twoWeeksFromNow;
+        NewReservationHistory.title =  product.title;
+        NewReservationHistory.author = product.author;
+        NewReservationHistory.updatedBy = product.updated_by;
+    }
+
+    private async Task RefreshReserves()
+    {
+        Reserve = await service.GetReservationsAsync();
+    }
+    private async Task AddNewReservation()
+    {
+        await service.AddReservationsAsync(NewReservations);
+        await service.AddReservationHistoryAsync(NewReservationHistory);
+        NewReservations = new Reservations();
+        await RefreshReserves();
+
+        navManager.NavigateTo($"/reservations/complete", true);
+    }
+
+    public void Back()
+    {
+        navManager.NavigateTo($"/", true);
+    }
+}
+
